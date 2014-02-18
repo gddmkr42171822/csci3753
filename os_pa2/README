@@ -1,0 +1,6 @@
+In order to run multi-lookup:
+1) "Cd" into the directory where multi-lookup.c is located
+2) Run "make"
+3) Run multi-lookup by typing "./multi-loop <input_file> results.txt" (where <input_file> is one or multiple of the names.txt files separated by spaces and results.txt is the output file)
+4) Check results.txt to see the output of the hostname and the IP address
+5) Run "make clean" to clear the entire build
