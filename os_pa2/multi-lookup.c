@@ -112,21 +112,29 @@ int main(int argc, char* argv[]){
     	/* Create Each Resolver Thread And Send Them Into The Resolver Function */
     	rc = pthread_create(&(resolver_threads[t]), NULL, resolver_thread_function, &(resolve_threads[t]));
 		if (rc){
-	    	printf("ERROR; return code from pthread_create() is %d\n", rc);
+	    	fprintf(stderr, "ERROR; return code from pthread_create() is %d\n", rc);
 	    	exit(EXIT_FAILURE);
 		}
 	}
 
+	int pthread_join_error;
+
 	/* Wait For All Requester Threads To Finish */
     for(t=0;t<num_input_files;t++){
-		pthread_join(requester_threads[t],NULL);
+		pthread_join_error = pthread_join(requester_threads[t],NULL);
+		if(pthread_join_error){
+			fprintf(stderr, "ERROR; return code for pthread_join() for the requester threads is %d\n", pthread_join_error);
+		}
     }
     printf("All of the requester threads completed!\n");
 	
-
+    
 	/* Wait For All Resolver Threads To Finish */
     for(t=0;t<MAX_RESOLVER_THREADS;t++){
-		pthread_join(resolver_threads[t],NULL);
+		pthread_join_error = pthread_join(resolver_threads[t],NULL);
+		if(pthread_join_error){
+			printf("ERROR; return code for pthread_join() for the resolver threads is %d\n", pthread_join_error);
+		}
     }
     printf("All of the resolver threads completed!\n");
 
@@ -276,6 +284,10 @@ void* resolver_thread_function(void* thread_information){
 
     	/* Get Hostname Off Queue */
     	payload = queue_pop(request_queue);
+
+    	if(payload == NULL){
+    		fprintf(stderr, "Unable to pop anything off the queue becuase the queue is empty");
+    	}
 
     	/* Unlock The Queue */
 		mutex_unlock_error = pthread_mutex_unlock(queue_mutex);
