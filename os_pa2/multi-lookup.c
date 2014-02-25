@@ -1,4 +1,5 @@
 #include "multi-lookup.h"
+int requester_threads_still_running = 1;
 
 int main(int argc, char* argv[]){
 
@@ -127,6 +128,7 @@ int main(int argc, char* argv[]){
 		}
     }
     printf("All of the requester threads completed!\n");
+    requester_threads_still_running = 0;
 	
     
 	/* Wait For All Resolver Threads To Finish */
@@ -274,7 +276,7 @@ void* resolver_thread_function(void* thread_information){
 	*/
 
 	/* While The Queue Is Not Empty */
-	while(!queue_is_empty(request_queue)){
+	while(!queue_is_empty(request_queue) || requester_threads_still_running){
 
 		/* Lock The Queue So Only This Thread Can Access It */
     	mutex_lock_error = pthread_mutex_lock(queue_mutex);
@@ -286,9 +288,14 @@ void* resolver_thread_function(void* thread_information){
     	payload = queue_pop(request_queue);
 
     	if(payload == NULL){
-    		fprintf(stderr, "Unable to pop anything off the queue becuase the queue is empty");
+    		mutex_unlock_error = pthread_mutex_unlock(queue_mutex);
+			if (mutex_unlock_error){
+	    		fprintf(stderr, "ERROR; return code from pthread_mutex_unlock() for the queue is %d\n", mutex_unlock_error);
+			} 
+    		fprintf(stderr, "Unable to pop anything off the queue becuase the queue is empty\n");
+    		usleep(100);
     	}
-
+    	else {
     	/* Unlock The Queue */
 		mutex_unlock_error = pthread_mutex_unlock(queue_mutex);
 		if (mutex_unlock_error){
@@ -318,6 +325,7 @@ void* resolver_thread_function(void* thread_information){
 
 	    /* Free Memory Blocks On The Heap Created By Payload */
 	    free(payload);
+		}
 	}
 
 	/* Unlock The Queue */
