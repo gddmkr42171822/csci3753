@@ -1,0 +1,9 @@
+wall=0.97 user=0.05 system=0.20 CPU=25% i-switched=1 v-switched=15027
+wall=0.99 user=0.03 system=0.46 CPU=49% i-switched=1 v-switched=14040
+wall=1.66 user=0.02 system=0.44 CPU=28% i-switched=1 v-switched=14655
+wall=0.89 user=0.04 system=0.16 CPU=23% i-switched=1 v-switched=15323
+wall=0.94 user=0.04 system=0.38 CPU=45% i-switched=1 v-switched=13741
+wall=1.04 user=0.07 system=0.16 CPU=22% i-switched=1 v-switched=14697
+wall=1.06 user=0.03 system=0.32 CPU=33% i-switched=1 v-switched=14466
+wall=1.20 user=0.03 system=0.38 CPU=34% i-switched=1 v-switched=15004
+wall=1.06 user=0.03 system=0.43 CPU=44% i-switched=1 v-switched=15248
