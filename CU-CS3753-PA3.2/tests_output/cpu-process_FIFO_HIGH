@@ -1,9 +1,0 @@
-wall=3.13 user=3.01 system=0.04 CPU=97% i-switched=1 v-switched=107
-wall=3.18 user=2.86 system=0.04 CPU=91% i-switched=1 v-switched=104
-wall=1.80 user=4.68 system=0.06 CPU=262% i-switched=2 v-switched=107
-wall=2.40 user=3.92 system=0.09 CPU=167% i-switched=2 v-switched=106
-wall=3.24 user=2.95 system=0.03 CPU=92% i-switched=2 v-switched=104
-wall=1.44 user=5.10 system=0.09 CPU=359% i-switched=2 v-switched=108
-wall=2.38 user=2.97 system=0.07 CPU=127% i-switched=2 v-switched=105
-wall=1.84 user=4.51 system=0.11 CPU=251% i-switched=2 v-switched=107
-wall=3.36 user=3.94 system=0.31 CPU=126% i-switched=1 v-switched=107
