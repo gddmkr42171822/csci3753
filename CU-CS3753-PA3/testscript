@@ -1,4 +1,4 @@
-#/!/bin/bash
+#!/bin/bash
 
 #Description:
 #	A simple bash script to run each each test case
